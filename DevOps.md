@@ -1,24 +1,28 @@
+# Project Deliverable #4: Implementation of User Stories Set #1
+# Team: Devops 345
+
 The following document contains the methodology we'll adopt to support the Backend teams, along with the experiments run and the POCs done.
 
 Design:
+
 As per the best practices, we'd like to accomplish this in two parts: CI and CD. 
 
-CI part refers to the pipeline which will comprise the following steps:
-    1. Compile, test and build the code in a docker container.
-    2. Create a dockerized image for the artifact generated in the last step.
-    3. Push it to a central repository, such as Docker Hub, Azure Container Registry, etc.
+The CI part refers to the pipeline which will comprise the following steps:
+  1. Compile, test and build the code in a docker container.
+  2. Create a dockerized image for the artifact generated in the last step.
+  3. Push it to a central repository, such as Docker Hub, Azure Container Registry, etc.
 
-CD part refers to the pipeline which will comprise the following steps:
-    1. Create a containerized instance of required DB and deploy it on cloud.
-    2. Pull the docker image from the Docker registry (pushed in the CI pipeline) and deploy it on Azure Container Instances.
+The CD part refers to the pipeline which will comprise the following steps:
+  1. Create a containerized instance of required DB and deploy it on cloud.
+  2. Pull the docker image from the Docker registry (pushed in the CI pipeline) and deploy it on Azure Container Instances.
 
-Since the teams are not yet ready with their implementations, in order to test our pipeline, we created two pipelines, one for Java + SpringBoot + Maven and the other for Java + SpringBoot + Gradle because those are the primary tech stacks of backend teams.
+Since the teams are not yet ready with their implementations, in order to test our pipeline, we created two pipelines. The first was for Java + SpringBoot + Maven and the other was for Java + SpringBoot + Gradle, because those are the primary tech stacks of our backend teams.
 
 The link to repos are as follows (They are private for now):
 
-Repo 1 - https://github.com/shaktimann/TestAddressBook
+Repo 1 (Maven)- https://github.com/shaktimann/TestAddressBook
 
-Repo 2 - https://github.com/shaktimann/TestAddressBook
+Repo 2 (Gradle)- https://github.com/aichkay01/TSFSBackendGradle
 
 
 
@@ -104,38 +108,34 @@ jobs:
 ## CD pipeline -  Workflow
 
 For continuous delivery, we have broken down the workflow into two components:
-i. Deployment of the application.
-ii. Deployment of a DB instance as per the team's requirements. 
+- i. Deployment of the application.
+- ii. Deployment of a DB instance as per the team's requirements. 
 
-Following are some references and links one might helpful to set up a CD pipeline.
+To prepare for future implementation regarding Continuous Delivery, we identified some avenues for exploration. As we do not have access to the class Azure resources, we have not delved into exploration yet. 
 
-Can use docker cli or vscode extension to put containers on azure
-“Docker Azure Integration enables developers to use native Docker commands to run applications in Azure Container Instances (ACI) “
-https://docs.docker.com/cloud/aci-integration/ 
+With regards to deploying containers, we have found three relevant ways:
+1. *Docker-Azure Integration.* Allows us to use Docker CLI or VSCode extensions to deploy containers with native Docker commands to Azure Container Instances (ACI)
+  https://docs.docker.com/cloud/aci-integration/ 
 
-Can use azure cli and azure container registry
-    3 part tutorial on https://learn.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app
+2. *Azure CLI and Azure Container Registry.* Native to Azure, the registry stores container images and the CLI is used to deploy them
+  https://learn.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app
 
-Can use github actions for CD to azure
-Build an image from a Dockerfile → Push the image to an Azure container registry → Deploy the container image to an Azure container instance
-Link 1: https://learn.microsoft.com/en-us/azure/container-instances/container-instances-github-action?tabs=userlevel 
-Link 2: https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service 
+3. *GitHub Actions.* A pipeline can be created to upload Docker images to Azure Container Registry and then deploy these containers directly on Azure. 
+  
+    https://learn.microsoft.com/en-us/azure/container-instances/container-instances-github-action?tabs=userlevel 
 
-How to run the DBs on Azure 
-First try on local using docker compose (Link: https://blog.christian-schou.dk/run-postgresql-database-using-docker-compose/)
-General types offered https://azure.microsoft.com/en-ca/products/category/databases/ 
-PostgreSQL DB on Azure
-Single server and Flexible server https://learn.microsoft.com/en-us/azure/postgresql/single-server/overview-postgres-choose-server-options?source=recommendations 
+    https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service 
 
-Tutorial: (uses the Azure portal) https://learn.microsoft.com/en-us/azure/postgresql/single-server/tutorial-design-database-using-azure-portal 
-Not sure what to do about H2 database?
+We are aiming to focus on option 3 as it will further extend our CI pipeline as it is now.
+We also looked into deploying databases on Azure and aim to begin with PostgreSQL databases. 
+Below are some relevant links
+- Local https://blog.christian-schou.dk/run-postgresql-database-using-docker-compose/
+- Azure DB types https://azure.microsoft.com/en-ca/products/category/databases/
+- PostgreSQL DB on Azure
 
-Important links:
-https://medium.com/hardwareandro/install-docker-on-azure-virtual-machine-github-docker-hub-azure-deploy-pipeline-part-1-4b1e73dd0d7
+  Single server and Flexible server https://learn.microsoft.com/en-us/azure/postgresql/single-server/overview-postgres-choose-server-options?source=recommendations 
 
-https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
-
-https://dev.to/shayki5/github-action-for-building-maven-project-with-docker-and-push-it-docker-hub-3c3k
+  Tutorial: (uses the Azure portal) https://learn.microsoft.com/en-us/azure/postgresql/single-server/tutorial-design-database-using-azure-portal 
 
 
 ## Teams specifics and Future Work
