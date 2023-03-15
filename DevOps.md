@@ -12,8 +12,7 @@ CD part refers to the pipeline which will comprise the following steps:
     1. Create a containerized instance of required DB and deploy it on cloud.
     2. Pull the docker image from the Docker registry (pushed in the CI pipeline) and deploy it on Azure Container Instances.
 
-
-In order to test our pipeline, we created two pipelines, one for Java + SpringBoot + Maven and the other for Java + SpringBoot + Gradle because those are the primary tech stacks of backend teams.
+Since the teams are not yet ready with their implementations, in order to test our pipeline, we created two pipelines, one for Java + SpringBoot + Maven and the other for Java + SpringBoot + Gradle because those are the primary tech stacks of backend teams.
 
 The link to repos are as follows (They are private for now):
 
@@ -137,3 +136,13 @@ https://medium.com/hardwareandro/install-docker-on-azure-virtual-machine-github-
 https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
 
 https://dev.to/shayki5/github-action-for-building-maven-project-with-docker-and-push-it-docker-hub-3c3k
+
+
+## Teams specifics and Future Work
+
+Backend Team 3 - The team proposes to use RabbitMQ to build a notification service. As they progress and make a final decision on this, we'll begin to look into providing the with MQ services.
+
+
+Backend Team 4 - The team proposes to use RabbitMQ to build a notification service. They have also mentioned using Redis as optional for caching. As they progress and make a final decision on this, we'll provide them with required services.
+
+Backend Team 5 - The team is yet to choose between SQL or NoSQL DB. We'll offer them support accordingly.
