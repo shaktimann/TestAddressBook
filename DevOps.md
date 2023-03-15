@@ -55,11 +55,13 @@ CMD java -jar AddressBook-1.0-SNAPSHOT.jar
 
 <img src="./Screenshot%202023-03-15%20142527.png"  width="800" height="800">
 
-3. Go to your git repo > Actions > New workflow.
+3. Go to your git repo > Settings > Secrets and variables > Actions. Add Secrets for DOCKER_USERNAME and DOCKER_PASSWORD.
 
-4. Create a new workflow to build your SpringBoot project, build a docker image from the packaged jar and push the docker image to Docker Hub / Azure Container Reqgistry.
+4. Go to your git repo > Actions > New workflow.
 
-A sample main.yaml (works for the sample project) looks like follows (Note that the value for 'runs-on' needs to be configured as per the label of your runner, obtained after step 2):
+5. Create a new workflow to build your SpringBoot project, build a docker image from the packaged jar and push the docker image to Docker Hub / Azure Container Reqgistry.
+
+A sample main.yaml (works for the sample project) looks like follows (Note that the value for 'runs-on' needs to be configured as per the label of your runner, obtained after step 2.):
 
 ```
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
