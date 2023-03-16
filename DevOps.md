@@ -3,7 +3,18 @@
 
 The following document contains the methodology we'll adopt to support the Backend teams, along with the experiments run and the POCs done.
 
-## Design and course of action
+## Requirements Gathering and Resource Acquisition
+We collaborated with Backend teams 3, 4, 5 to better understand their requirements and tools and technologies they would use to develop their respective backends. The following is a consolidated list of the same:
+
+| Team      | Tech Stack |
+| ----------- | ----------- |
+| Backend 3   | Java, SpringBoot, Gradle, PostgresSQL, RabbitMQ |
+| Backend 4   | Java, SpringBoot, Maven, RabbitMQ, Redis (optional) |
+| Backend 5   | Java, SpringBoot, SQL/NoSQL DB, MQ (Kafka) |
+
+After discussion with TAs and the professor, we have finalized Microsoft Azure as our cloud provider and have been provisioned $200 ($50 credits per person) worth of Azure credits.
+
+## Design
 
 As per the best practices, we'd like to accomplish this in two parts: CI and CD. 
 
@@ -16,7 +27,7 @@ The **CD part** refers to the pipeline which will comprise the following steps:
   1. Create a containerized instance of required DB and deploy it on cloud.
   2. Pull the docker image from the Docker registry (pushed in the step 3 of the CI pipeline) and deploy it on Azure Container Instances.
 
-Since the teams are not yet ready with their implementations, in order to test our workflow, we created two pipelines. 
+Since the teams were not yet ready with their implementations, in order to test our workflow, we created two pipelines. 
 1st was for Java + SpringBoot + Maven and 
 2nd was for Java + SpringBoot + Gradle, because those are the primary tech stacks of our backend teams.
 
@@ -127,6 +138,7 @@ With regards to deploying containers, we have found three relevant ways:
     https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service 
 
 We are aiming to focus on option 3 as it will further extend our CI pipeline as it is now.
+
 We also looked into deploying databases on Azure and aim to begin with PostgreSQL databases. 
 Below are some relevant links
 - Local https://blog.christian-schou.dk/run-postgresql-database-using-docker-compose/
@@ -137,8 +149,10 @@ Below are some relevant links
 
   Tutorial: (uses the Azure portal) https://learn.microsoft.com/en-us/azure/postgresql/single-server/tutorial-design-database-using-azure-portal 
 
+As discussed in the class, we'll also evaluate and use the steps mentioned here to deploy Azure multi-container apps: 
+https://github.com/alfredodeza/azure-multi-container-apps
 
-## Teams specifics and Future Work
+## Teams specifics and Strategy
 
 Backend Team 3 - The team proposes to use RabbitMQ to build a notification service. As they progress and make a final decision on this, we'll begin to look into providing them with MQ services.
 
