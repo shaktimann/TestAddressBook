@@ -3,20 +3,22 @@
 
 The following document contains the methodology we'll adopt to support the Backend teams, along with the experiments run and the POCs done.
 
-Design:
+## Design and course of action
 
 As per the best practices, we'd like to accomplish this in two parts: CI and CD. 
 
-The CI part refers to the pipeline which will comprise the following steps:
+The **CI part** refers to the pipeline which will comprise the following steps:
   1. Compile, test and build the code in a docker container.
-  2. Create a dockerized image for the artifact generated in the last step.
+  2. Create a dockerized image for the artifact generated in the previous step.
   3. Push it to a central repository, such as Docker Hub, Azure Container Registry, etc.
 
-The CD part refers to the pipeline which will comprise the following steps:
+The **CD part** refers to the pipeline which will comprise the following steps:
   1. Create a containerized instance of required DB and deploy it on cloud.
-  2. Pull the docker image from the Docker registry (pushed in the CI pipeline) and deploy it on Azure Container Instances.
+  2. Pull the docker image from the Docker registry (pushed in the step 3 of the CI pipeline) and deploy it on Azure Container Instances.
 
-Since the teams are not yet ready with their implementations, in order to test our pipeline, we created two pipelines. The first was for Java + SpringBoot + Maven and the other was for Java + SpringBoot + Gradle, because those are the primary tech stacks of our backend teams.
+Since the teams are not yet ready with their implementations, in order to test our workflow, we created two pipelines. 
+1st was for Java + SpringBoot + Maven and 
+2nd was for Java + SpringBoot + Gradle, because those are the primary tech stacks of our backend teams.
 
 The link to repos are as follows (They are private for now):
 
@@ -25,13 +27,11 @@ Repo 1 (Maven)- https://github.com/shaktimann/TestAddressBook
 Repo 2 (Gradle)- https://github.com/aichkay01/TSFSBackendGradle
 
 
-
-
 ## CI pipeline -  Implementation
 
 Following are the steps to create a CI pipeline for a backend team.
 
-1. Create a multi-stage Dockerfile to build in the 1st stage and dockerize and push docker image in the second stage.
+1. Create a multi-stage Dockerfile to build in the 1st stage and dockerize and push docker image in the 2nd stage.
 
 A sample Dockerfile (works for the sample project) looks like follows:
 ```
@@ -108,10 +108,10 @@ jobs:
 ## CD pipeline -  Workflow
 
 For continuous delivery, we have broken down the workflow into two components:
-- i. Deployment of the application.
-- ii. Deployment of a DB instance as per the team's requirements. 
+- Deployment of the application.
+- Deployment of a DB instance as per team's requirements. 
 
-To prepare for future implementation regarding Continuous Delivery, we identified some avenues for exploration. As we do not have access to the class Azure resources, we have not delved into exploration yet. 
+To prepare for future implementation regarding Continuous Delivery, we identified some avenues for exploration. As we did not have access to the class Azure resources, we couldn't develop a POC.
 
 With regards to deploying containers, we have found three relevant ways:
 1. *Docker-Azure Integration.* Allows us to use Docker CLI or VSCode extensions to deploy containers with native Docker commands to Azure Container Instances (ACI)
@@ -140,8 +140,7 @@ Below are some relevant links
 
 ## Teams specifics and Future Work
 
-Backend Team 3 - The team proposes to use RabbitMQ to build a notification service. As they progress and make a final decision on this, we'll begin to look into providing the with MQ services.
-
+Backend Team 3 - The team proposes to use RabbitMQ to build a notification service. As they progress and make a final decision on this, we'll begin to look into providing them with MQ services.
 
 Backend Team 4 - The team proposes to use RabbitMQ to build a notification service. They have also mentioned using Redis as optional for caching. As they progress and make a final decision on this, we'll provide them with required services.
 
